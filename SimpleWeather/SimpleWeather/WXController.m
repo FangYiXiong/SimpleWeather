@@ -16,7 +16,7 @@
 @property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (strong, nonatomic) UIImageView *blurredImageView;
 @property (strong, nonatomic) UITableView *tableView;
-@property (nonatomic) CGFloat screedHeight;
+@property (nonatomic) CGFloat screenHeight;
 @end
 
 @implementation WXController
@@ -38,7 +38,7 @@
 {
     [super viewDidLoad];
     
-    self.screedHeight = [UIScreen mainScreen].bounds.size.height;
+    self.screenHeight = [UIScreen mainScreen].bounds.size.height;
     
     UIImage *background = [UIImage imageNamed:@"bg"];
     
@@ -50,8 +50,10 @@
     self.blurredImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.blurredImageView.alpha       = 0;
     [self.blurredImageView setImageToBlur:background
-                               blurRadius:10
-                          completionBlock:nil];
+                               blurRadius:kLBBlurredImageDefaultBlurRadius
+                          completionBlock:^{
+                              NSLog(@"blurred completion.");
+                          }];
     [self.view addSubview:self.blurredImageView];
     
     self.tableView                 = [UITableView new];
@@ -280,10 +282,23 @@
 }
 
 #pragma mark - UITableView Delegate methods
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    //TODO
-    return 44.0;
+    NSInteger cellCount = [self tableView:tableView numberOfRowsInSection:indexPath.section];
+    return self.screenHeight / (CGFloat)cellCount;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // 1. 获取滚动视图的高度和内容偏移量。与0偏移量做比较，因此试图滚动table低于初始位置将不会影响模糊效果。
+    CGFloat height = scrollView.bounds.size.height;
+    CGFloat position = MAX(scrollView.contentOffset.y, 0.0);
+    
+    // 2. 偏移量除以高度，并且最大值为1，所以alpha上限为1。
+    CGFloat percent = MIN(position / height, 1.0);
+
+    // 3. 当你滚动的时候，把结果值赋给模糊图像的alpha属性，来更改模糊图像。
+    self.blurredImageView.alpha = percent;
 }
 
 @end
