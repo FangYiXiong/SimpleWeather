@@ -9,6 +9,8 @@
 #import "WXController.h"
 #import "WXManager.h"
 #import <LBBlurredImage/UIImageView+LBBlurredImage.h>
+#import <CoreMotion/CoreMotion.h>
+#import "SCImagePanScrollBarView.h"
 
 @interface WXController ()
 @property (strong, nonatomic) NSDateFormatter *hourlyFormatter;
@@ -17,7 +19,21 @@
 @property (strong, nonatomic) UIImageView *blurredImageView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic) CGFloat screenHeight;
+
+@property (nonatomic, strong) CMMotionManager *motionManager;
+@property (nonatomic, strong) CADisplayLink *displayLink;
+
+@property (nonatomic, strong) UIScrollView *panningScrollView;
+@property (nonatomic, strong) UIImageView *panningImageView;
+@property (nonatomic, strong) SCImagePanScrollBarView *scrollBarView;
+
+@property (nonatomic, assign, getter = isMotionBasedPanEnabled) BOOL motionBasedPanEnabled;
 @end
+
+static CGFloat kMovementSmoothing = 0.3f;
+static CGFloat kAnimationDuration = 0.3f;
+static CGFloat kRotationMultiplier = 5.f;
+
 
 @implementation WXController
 
@@ -30,24 +46,71 @@
                             
         _dailyFormatter = [NSDateFormatter new];
         _dailyFormatter.dateFormat = @"EEEE";
+        
+        CMMotionManager *motionManager = [[CMMotionManager alloc] init];
+        self.motionManager = motionManager;
+        self.view.frame = self.view.bounds;
+        self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        UIImage *panoramaImage = [UIImage imageNamed:@"melbourne.jpg"];
+        [self configureWithImage:panoramaImage];
+        self.motionBasedPanEnabled = YES;
     }
     return self;
+}
+
+
+- (void)dealloc
+{
+    [_displayLink invalidate];
+    [_motionManager stopDeviceMotionUpdates];
+}
+
+- (void)loadScrollView{
+    self.panningScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    self.panningScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    self.panningScrollView.backgroundColor = [UIColor blackColor];
+    self.panningScrollView.delegate = self;
+    self.panningScrollView.scrollEnabled = NO;
+    self.panningScrollView.alwaysBounceVertical = NO;
+    self.panningScrollView.maximumZoomScale = 2.f;
+    [self.panningScrollView.pinchGestureRecognizer addTarget:self action:@selector(pinchGestureRecognized:)];
+    
+    [self.view addSubview:self.panningScrollView];
+    
+    self.panningImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    self.panningImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    self.panningImageView.backgroundColor = [UIColor blackColor];
+    self.panningImageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    [self.panningScrollView addSubview:self.panningImageView];
+    
+    self.scrollBarView = [[SCImagePanScrollBarView alloc] initWithFrame:self.view.bounds edgeInsets:UIEdgeInsetsMake(0.f, 10.f, 50.f, 10.f)];
+    self.scrollBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    self.scrollBarView.userInteractionEnabled = NO;
+    [self.view addSubview:self.scrollBarView];
+    
+    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkUpdate:)];
+    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleMotionBasedPan:)];
+    [self.view addGestureRecognizer:tapGestureRecognizer];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.screenHeight = [UIScreen mainScreen].bounds.size.height;
     
-    UIImage *background = [UIImage imageNamed:@"bg"];
+    UIImage *background = [UIImage imageNamed:@"melbourne.jpg"];
     
     self.backgroundImageView = [[UIImageView alloc] initWithImage:background];
     self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.view addSubview:self.backgroundImageView];
+    [self loadScrollView];
+
+//    [self.view addSubview:self.backgroundImageView];
     
     self.blurredImageView             = [UIImageView new];
-    self.blurredImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.blurredImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.blurredImageView.alpha       = 0;
     [self.blurredImageView setImageToBlur:background
                                blurRadius:kLBBlurredImageDefaultBlurRadius
@@ -85,6 +148,7 @@
                                   temperatureFrame.origin.y - iconHeight,
                                   iconHeight,
                                   iconHeight);
+
     // 5
     CGRect conditionsFrame = iconFrame;
     conditionsFrame.size.width = self.view.bounds.size.width - (((2 * inset) + iconHeight) + 10);
@@ -180,6 +244,192 @@
          
          [self.tableView reloadData];
      }];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    self.panningScrollView.contentOffset = CGPointMake((self.panningScrollView.contentSize.width / 2.f) - (CGRectGetWidth(self.panningScrollView.bounds)) / 2.f,
+                                                       (self.panningScrollView.contentSize.height / 2.f) - (CGRectGetHeight(self.panningScrollView.bounds)) / 2.f);
+    
+    [self.motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
+        [self calculateRotationBasedOnDeviceMotionRotationRate:motion];
+    }];
+}
+
+#pragma mark - Status Bar
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+#pragma mark - Public
+
+- (void)configureWithImage:(UIImage *)image
+{
+    self.panningImageView.image = image;
+    [self updateScrollViewZoomToMaximumForImage:image];
+}
+
+#pragma mark - Motion Handling
+
+- (void)calculateRotationBasedOnDeviceMotionRotationRate:(CMDeviceMotion *)motion
+{
+    if (self.isMotionBasedPanEnabled)
+    {
+        CGFloat xRotationRate = motion.rotationRate.x;
+        CGFloat yRotationRate = motion.rotationRate.y;
+        CGFloat zRotationRate = motion.rotationRate.z;
+        
+        if (fabs(yRotationRate) > (fabs(xRotationRate) + fabs(zRotationRate)))
+        {
+            CGFloat invertedYRotationRate = yRotationRate * -1;
+            
+            CGFloat zoomScale = [self maximumZoomScaleForImage:self.panningImageView.image];
+            CGFloat interpretedXOffset = self.panningScrollView.contentOffset.x + (invertedYRotationRate * zoomScale * kRotationMultiplier);
+            
+            CGPoint contentOffset = [self clampedContentOffsetForHorizontalOffset:interpretedXOffset];
+            
+            [UIView animateWithDuration:kMovementSmoothing
+                                  delay:0.0f
+                                options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseOut
+                             animations:^{
+                                 [self.panningScrollView setContentOffset:contentOffset animated:NO];
+                             } completion:NULL];
+        }
+    }
+}
+
+#pragma mark - CADisplayLink
+
+- (void)displayLinkUpdate:(CADisplayLink *)displayLink
+{
+    CALayer *panningImageViewPresentationLayer = self.panningImageView.layer.presentationLayer;
+    CALayer *panningScrollViewPresentationLayer = self.panningScrollView.layer.presentationLayer;
+    
+    CGFloat horizontalContentOffset = CGRectGetMinX(panningScrollViewPresentationLayer.bounds);
+    
+    CGFloat contentWidth = CGRectGetWidth(panningImageViewPresentationLayer.frame);
+    CGFloat visibleWidth = CGRectGetWidth(self.panningScrollView.bounds);
+    
+    CGFloat clampedXOffsetAsPercentage = fmax(0.f, fmin(1.f, horizontalContentOffset / (contentWidth - visibleWidth)));
+    
+    CGFloat scrollBarWidthPercentage = visibleWidth / contentWidth;
+    CGFloat scrollableAreaPercentage = 1.0 - scrollBarWidthPercentage;
+    
+    [self.scrollBarView updateWithScrollAmount:clampedXOffsetAsPercentage forScrollableWidth:scrollBarWidthPercentage inScrollableArea:scrollableAreaPercentage];
+}
+
+#pragma mark - Zoom toggling
+
+- (void)toggleMotionBasedPan:(id)sender
+{
+    
+    BOOL motionBasedPanWasEnabled = self.isMotionBasedPanEnabled;
+    if (motionBasedPanWasEnabled)
+    {
+        self.motionBasedPanEnabled = NO;
+    }
+    
+    [UIView animateWithDuration:kAnimationDuration
+                     animations:^{
+                         [self updateViewsForMotionBasedPanEnabled:!motionBasedPanWasEnabled];
+                     } completion:^(BOOL finished) {
+                         if (motionBasedPanWasEnabled == NO)
+                         {
+                             self.motionBasedPanEnabled = YES;
+                         }
+                     }];
+}
+
+- (void)updateViewsForMotionBasedPanEnabled:(BOOL)motionBasedPanEnabled
+{
+    if (motionBasedPanEnabled)
+    {
+        [self updateScrollViewZoomToMaximumForImage:self.panningImageView.image];
+        self.panningScrollView.scrollEnabled = NO;
+    }
+    else
+    {
+        self.panningScrollView.zoomScale = 1.f;
+        self.panningScrollView.scrollEnabled = YES;
+    }
+}
+
+#pragma mark - Zooming
+
+- (CGFloat)maximumZoomScaleForImage:(UIImage *)image
+{
+    return (CGRectGetHeight(self.panningScrollView.bounds) / CGRectGetWidth(self.panningScrollView.bounds)) * (image.size.width / image.size.height);
+}
+
+- (void)updateScrollViewZoomToMaximumForImage:(UIImage *)image
+{
+    CGFloat zoomScale = [self maximumZoomScaleForImage:image];
+    
+    self.panningScrollView.maximumZoomScale = zoomScale;
+    self.panningScrollView.zoomScale = zoomScale;
+    NSLog(@"zoom Scale = %.2f",self.panningScrollView.zoomScale);
+    
+}
+
+#pragma mark - Helpers
+
+- (CGPoint)clampedContentOffsetForHorizontalOffset:(CGFloat)horizontalOffset;
+{
+    CGFloat maximumXOffset = self.panningScrollView.contentSize.width - CGRectGetWidth(self.panningScrollView.bounds);
+    CGFloat minimumXOffset = 0.f;
+    
+    CGFloat clampedXOffset = fmaxf(minimumXOffset, fmin(horizontalOffset, maximumXOffset));
+    CGFloat centeredY = (self.panningScrollView.contentSize.height / 2.f) - (CGRectGetHeight(self.panningScrollView.bounds)) / 2.f;
+    
+    return CGPointMake(clampedXOffset, centeredY);
+}
+
+#pragma mark - Pinch gesture
+
+- (void)pinchGestureRecognized:(id)sender
+{
+    self.motionBasedPanEnabled = NO;
+    self.panningScrollView.scrollEnabled = YES;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    if (scrollView == self.panningScrollView) {
+        return self.panningImageView;
+    }else{
+        return nil;
+    }
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
+{
+    if (scrollView == self.panningScrollView) {
+        [scrollView setContentOffset:[self clampedContentOffsetForHorizontalOffset:scrollView.contentOffset.x] animated:YES];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (scrollView == self.panningScrollView) {
+        if (decelerate == NO)
+        {
+            [scrollView setContentOffset:[self clampedContentOffsetForHorizontalOffset:scrollView.contentOffset.x] animated:YES];
+        }
+    }
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    if (scrollView == self.panningScrollView) {
+        [scrollView setContentOffset:[self clampedContentOffsetForHorizontalOffset:scrollView.contentOffset.x] animated:YES];
+    }
 }
 
 - (void)viewWillLayoutSubviews{
@@ -283,22 +533,26 @@
 
 #pragma mark - UITableView Delegate methods
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSInteger cellCount = [self tableView:tableView numberOfRowsInSection:indexPath.section];
+    NSInteger cellCount = [self tableView:tableView
+                    numberOfRowsInSection:indexPath.section];
     return self.screenHeight / (CGFloat)cellCount;
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    // 1. 获取滚动视图的高度和内容偏移量。与0偏移量做比较，因此试图滚动table低于初始位置将不会影响模糊效果。
-    CGFloat height = scrollView.bounds.size.height;
-    CGFloat position = MAX(scrollView.contentOffset.y, 0.0);
-    
-    // 2. 偏移量除以高度，并且最大值为1，所以alpha上限为1。
-    CGFloat percent = MIN(position / height, 1.0);
+    if (scrollView == self.tableView) {
+        
+        // 1. 获取滚动视图的高度和内容偏移量。与0偏移量做比较，因此试图滚动table低于初始位置将不会影响模糊效果。
+        CGFloat height = scrollView.bounds.size.height;
+        CGFloat position = MAX(scrollView.contentOffset.y, 0.0);
+        
+        // 2. 偏移量除以高度，并且最大值为1，所以alpha上限为1。
+        CGFloat percent = MIN(position / height, 1.0);
 
-    // 3. 当你滚动的时候，把结果值赋给模糊图像的alpha属性，来更改模糊图像。
-    self.blurredImageView.alpha = percent;
+        // 3. 当你滚动的时候，把结果值赋给模糊图像的alpha属性，来更改模糊图像。
+        self.blurredImageView.alpha = percent;
+    }
 }
 
 @end

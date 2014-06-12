@@ -19,6 +19,9 @@
 		32418029192EF3D100B47F2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32418011192EF3D100B47F2A /* UIKit.framework */; };
 		32418031192EF3D200B47F2A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3241802F192EF3D200B47F2A /* InfoPlist.strings */; };
 		32418033192EF3D200B47F2A /* SimpleWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32418032192EF3D200B47F2A /* SimpleWeatherTests.m */; };
+		3255D8561949A2A300F706C6 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3255D8551949A2A300F706C6 /* CoreMotion.framework */; };
+		3255D8581949A49100F706C6 /* melbourne.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3255D8571949A49100F706C6 /* melbourne.jpg */; };
+		3255D85B1949CFB000F706C6 /* SCImagePanScrollBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3255D85A1949CFB000F706C6 /* SCImagePanScrollBarView.m */; };
 		325F7053193311640040821F /* WXController.m in Sources */ = {isa = PBXBuildFile; fileRef = 325F7052193311640040821F /* WXController.m */; };
 		325F7070193313280040821F /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 325F7055193313280040821F /* bg.png */; };
 		325F7071193313280040821F /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 325F7056193313280040821F /* bg@2x.png */; };
@@ -80,6 +83,10 @@
 		3241802E192EF3D200B47F2A /* SimpleWeatherTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimpleWeatherTests-Info.plist"; sourceTree = "<group>"; };
 		32418030192EF3D200B47F2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32418032192EF3D200B47F2A /* SimpleWeatherTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleWeatherTests.m; sourceTree = "<group>"; };
+		3255D8551949A2A300F706C6 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		3255D8571949A49100F706C6 /* melbourne.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = melbourne.jpg; sourceTree = "<group>"; };
+		3255D8591949CFB000F706C6 /* SCImagePanScrollBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCImagePanScrollBarView.h; path = ../SCImagePanScrollBarView.h; sourceTree = "<group>"; };
+		3255D85A1949CFB000F706C6 /* SCImagePanScrollBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCImagePanScrollBarView.m; path = ../SCImagePanScrollBarView.m; sourceTree = "<group>"; };
 		325F7051193311640040821F /* WXController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXController.h; sourceTree = "<group>"; };
 		325F7052193311640040821F /* WXController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXController.m; sourceTree = "<group>"; };
 		325F7055193313280040821F /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
@@ -125,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3255D8561949A2A300F706C6 /* CoreMotion.framework in Frameworks */,
 				32418010192EF3D100B47F2A /* CoreGraphics.framework in Frameworks */,
 				32418012192EF3D100B47F2A /* UIKit.framework in Frameworks */,
 				3241800E192EF3D100B47F2A /* Foundation.framework in Frameworks */,
@@ -168,6 +176,7 @@
 		3241800C192EF3D100B47F2A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3255D8551949A2A300F706C6 /* CoreMotion.framework */,
 				3241800D192EF3D100B47F2A /* Foundation.framework */,
 				3241800F192EF3D100B47F2A /* CoreGraphics.framework */,
 				32418011192EF3D100B47F2A /* UIKit.framework */,
@@ -180,6 +189,8 @@
 		32418013192EF3D100B47F2A /* SimpleWeather */ = {
 			isa = PBXGroup;
 			children = (
+				3255D8591949CFB000F706C6 /* SCImagePanScrollBarView.h */,
+				3255D85A1949CFB000F706C6 /* SCImagePanScrollBarView.m */,
 				325F7051193311640040821F /* WXController.h */,
 				325F7052193311640040821F /* WXController.m */,
 				325F708A19331DEE0040821F /* WXClient.h */,
@@ -231,6 +242,7 @@
 		325F7054193313280040821F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3255D8571949A49100F706C6 /* melbourne.jpg */,
 				325F7055193313280040821F /* bg.png */,
 				325F7056193313280040821F /* bg@2x.png */,
 				325F7057193313280040821F /* Weather Icons */,
@@ -361,6 +373,7 @@
 				325F707D193313280040821F /* weather-moon@2x.png in Resources */,
 				325F707B193313280040821F /* weather-mist@2x.png in Resources */,
 				325F7088193313280040821F /* weather-tstorm.png in Resources */,
+				3255D8581949A49100F706C6 /* melbourne.jpg in Resources */,
 				325F7084193313280040821F /* weather-shower.png in Resources */,
 				325F707C193313280040821F /* weather-moon.png in Resources */,
 				325F707F193313280040821F /* weather-rain-night@2x.png in Resources */,
@@ -428,6 +441,7 @@
 				3241801E192EF3D100B47F2A /* AppDelegate.m in Sources */,
 				325F709519331E380040821F /* WXDailyForecast.m in Sources */,
 				325F708F19331E010040821F /* WXManager.m in Sources */,
+				3255D85B1949CFB000F706C6 /* SCImagePanScrollBarView.m in Sources */,
 				3241801A192EF3D100B47F2A /* main.m in Sources */,
 				325F7053193311640040821F /* WXController.m in Sources */,
 				325F709219331E180040821F /* WXCondition.m in Sources */,
