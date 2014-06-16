@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WXController : UIViewController<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
-
+- (void)refreshBackgroundImage;
 @end

@@ -10,6 +10,8 @@
 #import "WXController.h"
 #import <TSMessage.h>
 
+#define LAST_RUN_TIME        @"last_run_time_of_application"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -46,6 +48,20 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    double timeSince2001 = (double)[NSDate timeIntervalSinceReferenceDate];
+    NSInteger currentTime = timeSince2001 / (60*60*24);
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger lastRunTime    = [[defaults objectForKey:LAST_RUN_TIME] integerValue];
+    if (lastRunTime == 0) {
+        [defaults setObject:@(currentTime) forKey:LAST_RUN_TIME];
+        // App is being run for first time
+    }
+    else if (currentTime - lastRunTime > 0) {
+        [defaults setObject:@(currentTime) forKey:LAST_RUN_TIME];
+        WXController *controller = (WXController *)self.window.rootViewController;
+        [controller refreshBackgroundImage];
+        // App has been updated since last run
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

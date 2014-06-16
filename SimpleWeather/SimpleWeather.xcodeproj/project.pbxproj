@@ -20,11 +20,8 @@
 		32418031192EF3D200B47F2A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3241802F192EF3D200B47F2A /* InfoPlist.strings */; };
 		32418033192EF3D200B47F2A /* SimpleWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32418032192EF3D200B47F2A /* SimpleWeatherTests.m */; };
 		3255D8561949A2A300F706C6 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3255D8551949A2A300F706C6 /* CoreMotion.framework */; };
-		3255D8581949A49100F706C6 /* melbourne.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3255D8571949A49100F706C6 /* melbourne.jpg */; };
 		3255D85B1949CFB000F706C6 /* SCImagePanScrollBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3255D85A1949CFB000F706C6 /* SCImagePanScrollBarView.m */; };
 		325F7053193311640040821F /* WXController.m in Sources */ = {isa = PBXBuildFile; fileRef = 325F7052193311640040821F /* WXController.m */; };
-		325F7070193313280040821F /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 325F7055193313280040821F /* bg.png */; };
-		325F7071193313280040821F /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 325F7056193313280040821F /* bg@2x.png */; };
 		325F7072193313280040821F /* weather-broken.png in Resources */ = {isa = PBXBuildFile; fileRef = 325F7058193313280040821F /* weather-broken.png */; };
 		325F7073193313280040821F /* weather-broken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 325F7059193313280040821F /* weather-broken@2x.png */; };
 		325F7074193313280040821F /* weather-clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 325F705A193313280040821F /* weather-clear.png */; };
@@ -53,6 +50,7 @@
 		325F708F19331E010040821F /* WXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 325F708E19331E010040821F /* WXManager.m */; };
 		325F709219331E180040821F /* WXCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 325F709119331E180040821F /* WXCondition.m */; };
 		325F709519331E380040821F /* WXDailyForecast.m in Sources */ = {isa = PBXBuildFile; fileRef = 325F709419331E380040821F /* WXDailyForecast.m */; };
+		32B1224A194C19C80048B7F2 /* Background Images in Resources */ = {isa = PBXBuildFile; fileRef = 32B12249194C19C80048B7F2 /* Background Images */; };
 		F1AA11187CEF49F898F1E3BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5085D3DEC38F4277AC5F36CC /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -67,7 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3241800A192EF3D100B47F2A /* SimpleWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3241800A192EF3D100B47F2A /* Pano Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pano Weather.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3241800D192EF3D100B47F2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3241800F192EF3D100B47F2A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		32418011192EF3D100B47F2A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -84,13 +82,10 @@
 		32418030192EF3D200B47F2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32418032192EF3D200B47F2A /* SimpleWeatherTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleWeatherTests.m; sourceTree = "<group>"; };
 		3255D8551949A2A300F706C6 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		3255D8571949A49100F706C6 /* melbourne.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = melbourne.jpg; sourceTree = "<group>"; };
 		3255D8591949CFB000F706C6 /* SCImagePanScrollBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCImagePanScrollBarView.h; path = ../SCImagePanScrollBarView.h; sourceTree = "<group>"; };
 		3255D85A1949CFB000F706C6 /* SCImagePanScrollBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCImagePanScrollBarView.m; path = ../SCImagePanScrollBarView.m; sourceTree = "<group>"; };
 		325F7051193311640040821F /* WXController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXController.h; sourceTree = "<group>"; };
 		325F7052193311640040821F /* WXController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXController.m; sourceTree = "<group>"; };
-		325F7055193313280040821F /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
-		325F7056193313280040821F /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
 		325F7058193313280040821F /* weather-broken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-broken.png"; sourceTree = "<group>"; };
 		325F7059193313280040821F /* weather-broken@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-broken@2x.png"; sourceTree = "<group>"; };
 		325F705A193313280040821F /* weather-clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-clear.png"; sourceTree = "<group>"; };
@@ -123,6 +118,7 @@
 		325F709119331E180040821F /* WXCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXCondition.m; sourceTree = "<group>"; };
 		325F709319331E380040821F /* WXDailyForecast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXDailyForecast.h; sourceTree = "<group>"; };
 		325F709419331E380040821F /* WXDailyForecast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXDailyForecast.m; sourceTree = "<group>"; };
+		32B12249194C19C80048B7F2 /* Background Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Background Images"; sourceTree = "<group>"; };
 		5085D3DEC38F4277AC5F36CC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF228A9B97BB40A4A8D9F6CB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,7 +163,7 @@
 		3241800B192EF3D100B47F2A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3241800A192EF3D100B47F2A /* SimpleWeather.app */,
+				3241800A192EF3D100B47F2A /* Pano Weather.app */,
 				32418025192EF3D100B47F2A /* SimpleWeatherTests.xctest */,
 			);
 			name = Products;
@@ -242,9 +238,7 @@
 		325F7054193313280040821F /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				3255D8571949A49100F706C6 /* melbourne.jpg */,
-				325F7055193313280040821F /* bg.png */,
-				325F7056193313280040821F /* bg@2x.png */,
+				32B12249194C19C80048B7F2 /* Background Images */,
 				325F7057193313280040821F /* Weather Icons */,
 			);
 			path = Images;
@@ -300,7 +294,7 @@
 			);
 			name = SimpleWeather;
 			productName = SimpleWeather;
-			productReference = 3241800A192EF3D100B47F2A /* SimpleWeather.app */;
+			productReference = 3241800A192EF3D100B47F2A /* Pano Weather.app */;
 			productType = "com.apple.product-type.application";
 		};
 		32418024192EF3D100B47F2A /* SimpleWeatherTests */ = {
@@ -330,6 +324,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Fang Yixiong";
 				TargetAttributes = {
+					32418009192EF3D100B47F2A = {
+						DevelopmentTeam = 8EQXDFR6NK;
+					};
 					32418024192EF3D100B47F2A = {
 						TestTargetID = 32418009192EF3D100B47F2A;
 					};
@@ -365,6 +362,7 @@
 				325F7083193313280040821F /* weather-scattered@2x.png in Resources */,
 				325F7081193313280040821F /* weather-rain@2x.png in Resources */,
 				325F7077193313280040821F /* weather-few-night@2x.png in Resources */,
+				32B1224A194C19C80048B7F2 /* Background Images in Resources */,
 				325F707A193313280040821F /* weather-mist.png in Resources */,
 				325F7086193313280040821F /* weather-snow.png in Resources */,
 				325F7080193313280040821F /* weather-rain.png in Resources */,
@@ -373,7 +371,6 @@
 				325F707D193313280040821F /* weather-moon@2x.png in Resources */,
 				325F707B193313280040821F /* weather-mist@2x.png in Resources */,
 				325F7088193313280040821F /* weather-tstorm.png in Resources */,
-				3255D8581949A49100F706C6 /* melbourne.jpg in Resources */,
 				325F7084193313280040821F /* weather-shower.png in Resources */,
 				325F707C193313280040821F /* weather-moon.png in Resources */,
 				325F707F193313280040821F /* weather-rain-night@2x.png in Resources */,
@@ -385,8 +382,6 @@
 				32418020192EF3D100B47F2A /* Images.xcassets in Resources */,
 				325F7082193313280040821F /* weather-scattered.png in Resources */,
 				325F7075193313280040821F /* weather-clear@2x.png in Resources */,
-				325F7070193313280040821F /* bg.png in Resources */,
-				325F7071193313280040821F /* bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,10 +558,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yixiong Fang (8EQXDFR6NK)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleWeather/SimpleWeather-Prefix.pch";
 				INFOPLIST_FILE = "SimpleWeather/SimpleWeather-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Pano Weather";
+				PROVISIONING_PROFILE = "81F350B8-E17A-4B15-B112-24AC1BF51BA5";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -577,10 +575,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yixiong Fang (8EQXDFR6NK)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleWeather/SimpleWeather-Prefix.pch";
 				INFOPLIST_FILE = "SimpleWeather/SimpleWeather-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Pano Weather";
+				PROVISIONING_PROFILE = "81F350B8-E17A-4B15-B112-24AC1BF51BA5";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -49,10 +49,10 @@ static CGFloat kRotationMultiplier = 5.f;
         
         CMMotionManager *motionManager = [[CMMotionManager alloc] init];
         self.motionManager = motionManager;
-        self.view.frame = self.view.bounds;
-        self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        UIImage *panoramaImage = [UIImage imageNamed:@"melbourne.jpg"];
-        [self configureWithImage:panoramaImage];
+//        self.view.frame = self.view.bounds;
+//        self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+//        UIImage *panoramaImage = [UIImage imageWithContentsOfFile:[self getRandomPicturePath]];
+//        [self configureWithImage:panoramaImage];
         self.motionBasedPanEnabled = YES;
     }
     return self;
@@ -87,32 +87,44 @@ static CGFloat kRotationMultiplier = 5.f;
     self.scrollBarView = [[SCImagePanScrollBarView alloc] initWithFrame:self.view.bounds edgeInsets:UIEdgeInsetsMake(0.f, 10.f, 50.f, 10.f)];
     self.scrollBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.scrollBarView.userInteractionEnabled = NO;
+    // 隐藏ScrollBarView
+    self.scrollBarView.hidden = YES;
     [self.view addSubview:self.scrollBarView];
     
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkUpdate:)];
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleMotionBasedPan:)];
-    [self.view addGestureRecognizer:tapGestureRecognizer];
+//    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleMotionBasedPan:)];
+//    [self.view addGestureRecognizer:tapGestureRecognizer];
+}
+
+- (NSString *)getRandomPicturePath{
+    NSString *result;
+    NSArray *paths = [[NSBundle mainBundle] pathsForResourcesOfType:nil inDirectory:@"Background Images"];
+    int randomIndex = arc4random() % paths.count;
+    NSLog(@"randomIndex = %d",randomIndex);
+    result = paths[randomIndex];
+    return result;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    UIImage *background = [UIImage imageNamed:@"melbourne.jpg"];
-    
-    self.backgroundImageView = [[UIImageView alloc] initWithImage:background];
-    self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self loadScrollView];
+    self.screenHeight = [UIScreen mainScreen].bounds.size.height;
+    UIImage *panoramaImage = [UIImage imageWithContentsOfFile:[self getRandomPicturePath]];
+    [self configureWithImage:panoramaImage];
+//    UIImage *background = self.panningImageView.image;
+    
+//    self.backgroundImageView = [[UIImageView alloc] initWithImage:background];
+//    self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
 
 //    [self.view addSubview:self.backgroundImageView];
     
     self.blurredImageView             = [UIImageView new];
     self.blurredImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.blurredImageView.alpha       = 0;
-    [self.blurredImageView setImageToBlur:background
+    [self.blurredImageView setImageToBlur:panoramaImage
                                blurRadius:kLBBlurredImageDefaultBlurRadius
                           completionBlock:^{
                               NSLog(@"blurred completion.");
@@ -124,6 +136,7 @@ static CGFloat kRotationMultiplier = 5.f;
     self.tableView.delegate        = self;
     self.tableView.dataSource      = self;
     self.tableView.separatorColor  = [UIColor colorWithWhite:1.0 alpha:0.2];
+    self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.pagingEnabled   = YES;
     [self.view addSubview:self.tableView];
     
@@ -181,6 +194,8 @@ static CGFloat kRotationMultiplier = 5.f;
     cityLabel.text            = @"Loading...";
     cityLabel.font            = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
     cityLabel.textAlignment   = NSTextAlignmentCenter;
+//  隐藏地名
+    cityLabel.hidden = YES;
     
     [header addSubview:cityLabel];
     
@@ -250,13 +265,22 @@ static CGFloat kRotationMultiplier = 5.f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     self.panningScrollView.contentOffset = CGPointMake((self.panningScrollView.contentSize.width / 2.f) - (CGRectGetWidth(self.panningScrollView.bounds)) / 2.f,
                                                        (self.panningScrollView.contentSize.height / 2.f) - (CGRectGetHeight(self.panningScrollView.bounds)) / 2.f);
     
     [self.motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
         [self calculateRotationBasedOnDeviceMotionRotationRate:motion];
     }];
+}
+
+- (void)refreshBackgroundImage{
+    UIImage *panoramaImage = [UIImage imageWithContentsOfFile:[self getRandomPicturePath]];
+    [self configureWithImage:panoramaImage];
+    [self.blurredImageView setImageToBlur:panoramaImage
+                               blurRadius:kLBBlurredImageDefaultBlurRadius
+                          completionBlock:^{
+                              NSLog(@"blurred completion.");
+                          }];
 }
 
 #pragma mark - Status Bar
