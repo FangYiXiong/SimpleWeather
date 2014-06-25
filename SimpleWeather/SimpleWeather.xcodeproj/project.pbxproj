@@ -55,6 +55,8 @@
 		327BADD8195B276000308B7E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 327BADD7195B276000308B7E /* CoreData.framework */; };
 		327BADDA195B276D00308B7E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 327BADD9195B276D00308B7E /* libz.dylib */; };
 		327BADDC195B277600308B7E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 327BADDB195B277600308B7E /* SystemConfiguration.framework */; };
+		327BADDF195B2A9500308B7E /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 327BADDE195B2A9500308B7E /* libsqlite3.0.dylib */; };
+		327BADE1195B2A9B00308B7E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 327BADE0195B2A9B00308B7E /* CFNetwork.framework */; };
 		32B1224A194C19C80048B7F2 /* Background Images in Resources */ = {isa = PBXBuildFile; fileRef = 32B12249194C19C80048B7F2 /* Background Images */; };
 		F1AA11187CEF49F898F1E3BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5085D3DEC38F4277AC5F36CC /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -134,6 +136,8 @@
 		327BADD7195B276000308B7E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		327BADD9195B276D00308B7E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		327BADDB195B277600308B7E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		327BADDE195B2A9500308B7E /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		327BADE0195B2A9B00308B7E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		32B12249194C19C80048B7F2 /* Background Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Background Images"; sourceTree = "<group>"; };
 		5085D3DEC38F4277AC5F36CC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF228A9B97BB40A4A8D9F6CB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -144,6 +148,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				327BADE1195B2A9B00308B7E /* CFNetwork.framework in Frameworks */,
+				327BADDF195B2A9500308B7E /* libsqlite3.0.dylib in Frameworks */,
 				327BADDC195B277600308B7E /* SystemConfiguration.framework in Frameworks */,
 				327BADDA195B276D00308B7E /* libz.dylib in Frameworks */,
 				327BADD8195B276000308B7E /* CoreData.framework in Frameworks */,
@@ -193,6 +199,8 @@
 		3241800C192EF3D100B47F2A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				327BADE0195B2A9B00308B7E /* CFNetwork.framework */,
+				327BADDE195B2A9500308B7E /* libsqlite3.0.dylib */,
 				327BADDB195B277600308B7E /* SystemConfiguration.framework */,
 				327BADD9195B276D00308B7E /* libz.dylib */,
 				327BADD7195B276000308B7E /* CoreData.framework */,
