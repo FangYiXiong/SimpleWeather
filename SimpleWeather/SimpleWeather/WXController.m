@@ -49,6 +49,8 @@ static CGFloat kRotationMultiplier = 5.f;
         
         CMMotionManager *motionManager = [[CMMotionManager alloc] init];
         self.motionManager = motionManager;
+        self.screenName = @"Main Screen";
+
 //        self.view.frame = self.view.bounds;
 //        self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 //        UIImage *panoramaImage = [UIImage imageWithContentsOfFile:[self getRandomPicturePath]];

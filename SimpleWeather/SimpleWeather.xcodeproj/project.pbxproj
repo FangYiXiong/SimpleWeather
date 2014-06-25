@@ -50,6 +50,11 @@
 		325F708F19331E010040821F /* WXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 325F708E19331E010040821F /* WXManager.m */; };
 		325F709219331E180040821F /* WXCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 325F709119331E180040821F /* WXCondition.m */; };
 		325F709519331E380040821F /* WXDailyForecast.m in Sources */ = {isa = PBXBuildFile; fileRef = 325F709419331E380040821F /* WXDailyForecast.m */; };
+		327BADD4195B26C200308B7E /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 327BADD3195B26C200308B7E /* libGoogleAnalyticsServices.a */; };
+		327BADD6195B275600308B7E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 327BADD5195B275600308B7E /* AdSupport.framework */; };
+		327BADD8195B276000308B7E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 327BADD7195B276000308B7E /* CoreData.framework */; };
+		327BADDA195B276D00308B7E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 327BADD9195B276D00308B7E /* libz.dylib */; };
+		327BADDC195B277600308B7E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 327BADDB195B277600308B7E /* SystemConfiguration.framework */; };
 		32B1224A194C19C80048B7F2 /* Background Images in Resources */ = {isa = PBXBuildFile; fileRef = 32B12249194C19C80048B7F2 /* Background Images */; };
 		F1AA11187CEF49F898F1E3BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5085D3DEC38F4277AC5F36CC /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -118,6 +123,17 @@
 		325F709119331E180040821F /* WXCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXCondition.m; sourceTree = "<group>"; };
 		325F709319331E380040821F /* WXDailyForecast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXDailyForecast.h; sourceTree = "<group>"; };
 		325F709419331E380040821F /* WXDailyForecast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXDailyForecast.m; sourceTree = "<group>"; };
+		327BADCD195B26A700308B7E /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = SimpleWeatherTests/GAI.h; sourceTree = SOURCE_ROOT; };
+		327BADCE195B26A700308B7E /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIDictionaryBuilder.h; path = SimpleWeatherTests/GAIDictionaryBuilder.h; sourceTree = SOURCE_ROOT; };
+		327BADCF195B26A700308B7E /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIFields.h; path = SimpleWeatherTests/GAIFields.h; sourceTree = SOURCE_ROOT; };
+		327BADD0195B26A700308B7E /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAILogger.h; path = SimpleWeatherTests/GAILogger.h; sourceTree = SOURCE_ROOT; };
+		327BADD1195B26A700308B7E /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = SimpleWeatherTests/GAITrackedViewController.h; sourceTree = SOURCE_ROOT; };
+		327BADD2195B26A700308B7E /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = SimpleWeatherTests/GAITracker.h; sourceTree = SOURCE_ROOT; };
+		327BADD3195B26C200308B7E /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = SimpleWeatherTests/libGoogleAnalyticsServices.a; sourceTree = SOURCE_ROOT; };
+		327BADD5195B275600308B7E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		327BADD7195B276000308B7E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		327BADD9195B276D00308B7E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		327BADDB195B277600308B7E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		32B12249194C19C80048B7F2 /* Background Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Background Images"; sourceTree = "<group>"; };
 		5085D3DEC38F4277AC5F36CC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF228A9B97BB40A4A8D9F6CB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -128,11 +144,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				327BADDC195B277600308B7E /* SystemConfiguration.framework in Frameworks */,
+				327BADDA195B276D00308B7E /* libz.dylib in Frameworks */,
+				327BADD8195B276000308B7E /* CoreData.framework in Frameworks */,
+				327BADD6195B275600308B7E /* AdSupport.framework in Frameworks */,
 				3255D8561949A2A300F706C6 /* CoreMotion.framework in Frameworks */,
 				32418010192EF3D100B47F2A /* CoreGraphics.framework in Frameworks */,
 				32418012192EF3D100B47F2A /* UIKit.framework in Frameworks */,
 				3241800E192EF3D100B47F2A /* Foundation.framework in Frameworks */,
 				F1AA11187CEF49F898F1E3BE /* libPods.a in Frameworks */,
+				327BADD4195B26C200308B7E /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +193,10 @@
 		3241800C192EF3D100B47F2A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				327BADDB195B277600308B7E /* SystemConfiguration.framework */,
+				327BADD9195B276D00308B7E /* libz.dylib */,
+				327BADD7195B276000308B7E /* CoreData.framework */,
+				327BADD5195B275600308B7E /* AdSupport.framework */,
 				3255D8551949A2A300F706C6 /* CoreMotion.framework */,
 				3241800D192EF3D100B47F2A /* Foundation.framework */,
 				3241800F192EF3D100B47F2A /* CoreGraphics.framework */,
@@ -208,6 +233,13 @@
 		32418014192EF3D100B47F2A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				327BADD3195B26C200308B7E /* libGoogleAnalyticsServices.a */,
+				327BADCD195B26A700308B7E /* GAI.h */,
+				327BADCE195B26A700308B7E /* GAIDictionaryBuilder.h */,
+				327BADCF195B26A700308B7E /* GAIFields.h */,
+				327BADD0195B26A700308B7E /* GAILogger.h */,
+				327BADD1195B26A700308B7E /* GAITrackedViewController.h */,
+				327BADD2195B26A700308B7E /* GAITracker.h */,
 				325F7054193313280040821F /* Images */,
 				32418015192EF3D100B47F2A /* SimpleWeather-Info.plist */,
 				32418016192EF3D100B47F2A /* InfoPlist.strings */,
@@ -559,12 +591,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yixiong Fang (8EQXDFR6NK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleWeather/SimpleWeather-Prefix.pch";
 				INFOPLIST_FILE = "SimpleWeather/SimpleWeather-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SimpleWeatherTests",
+				);
 				PRODUCT_NAME = "Pano Weather";
-				PROVISIONING_PROFILE = "81F350B8-E17A-4B15-B112-24AC1BF51BA5";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -576,12 +613,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yixiong Fang (8EQXDFR6NK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleWeather/SimpleWeather-Prefix.pch";
 				INFOPLIST_FILE = "SimpleWeather/SimpleWeather-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SimpleWeatherTests",
+				);
 				PRODUCT_NAME = "Pano Weather";
-				PROVISIONING_PROFILE = "81F350B8-E17A-4B15-B112-24AC1BF51BA5";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
